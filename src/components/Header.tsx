@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { FiArrowUpRight } from "react-icons/fi";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -14,7 +14,6 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 flex justify-center px-4 pt-4">
-
       {/* FLOATING GLASS BAR */}
       <div
         className={`
@@ -32,7 +31,6 @@ export default function Header() {
           }
         `}
       >
-
         {/* LOGO */}
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -61,18 +59,23 @@ export default function Header() {
         <a
           href="#contact"
           className="
-            px-4 sm:px-5 py-2
-            rounded-xl
-            bg-white/50
-            border border-white/40
-            backdrop-blur-xl
-            text-sm text-black/70
-            hover:bg-white/70
-            transition
-            shadow-sm
-          "
+    group inline-flex items-center gap-2
+    px-4 sm:px-5 py-2
+    rounded-xl
+    bg-white/50
+    border border-white/40
+    backdrop-blur-xl
+    text-sm text-black/70
+    hover:bg-white/70
+    transition
+    shadow-sm
+  "
         >
           Hire Me
+          <FiArrowUpRight
+            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            size={16}
+          />
         </a>
       </div>
     </header>

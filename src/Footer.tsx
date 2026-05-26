@@ -1,22 +1,24 @@
+import { FiMail, FiFacebook, FiLinkedin, FiSend, FiArrowUp } from "react-icons/fi";
+
 export default function Footer() {
   return (
     <footer className="relative py-20 overflow-hidden">
-
+      
       {/* BACKGROUND GLOW */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-[-180px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-primary-soft/10 blur-[200px] rounded-full" />
       </div>
 
-      {/* GLASS BASE */}
       <div className="relative z-10 max-w-6xl mx-auto px-6">
 
+        {/* GLASS CARD */}
         <div className="
           rounded-[28px]
           bg-white/40
           backdrop-blur-2xl
           border border-white/30
           shadow-[0_20px_60px_rgba(0,0,0,0.06)]
-          px-8 sm:px-12 py-12
+          px-6 sm:px-12 py-12
         ">
 
           {/* TOP */}
@@ -55,17 +57,20 @@ export default function Footer() {
               <div className="space-y-3">
                 <div className="text-black font-medium">Connect</div>
 
-                <a className="block text-black/60 hover:text-primary transition" href="mailto:youremail@gmail.com">
-                  Email
+                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="mailto:youremail@gmail.com">
+                  <FiMail size={14} /> Email
                 </a>
-                <a className="block text-black/60 hover:text-primary transition" href="https://facebook.com">
-                  Facebook
+
+                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="https://facebook.com">
+                  <FiFacebook size={14} /> Facebook
                 </a>
-                <a className="block text-black/60 hover:text-primary transition" href="https://linkedin.com">
-                  LinkedIn
+
+                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="https://linkedin.com">
+                  <FiLinkedin size={14} /> LinkedIn
                 </a>
-                <a className="block text-black/60 hover:text-primary transition" href="https://t.me">
-                  Telegram
+
+                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="https://t.me">
+                  <FiSend size={14} /> Telegram
                 </a>
               </div>
 
@@ -99,13 +104,14 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* BACK TO TOP (SUBTLE APPLE TOUCH) */}
+        {/* BACK TO TOP */}
         <div className="mt-8 text-center">
           <a
             href="#top"
-            className="text-xs text-black/40 hover:text-primary transition"
+            className="inline-flex items-center gap-1 text-xs text-black/40 hover:text-primary transition"
           >
-            Back to top ↑
+            <FiArrowUp size={12} />
+            Back to top
           </a>
         </div>
 

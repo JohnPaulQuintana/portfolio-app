@@ -1,6 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import GlassBubbles from "./background/GlassBubbles";
-
+import { FiArrowRight, FiEye } from "react-icons/fi";
 const container: Variants = {
   hidden: { opacity: 0 },
   show: {
@@ -97,18 +97,48 @@ export default function Hero() {
         </motion.p>
 
         {/* CTA */}
-        <motion.div
-          variants={item}
-          className="mt-10 flex flex-col sm:flex-row justify-center gap-3"
-        >
-          <a className="px-8 py-3 rounded-xl bg-primary text-white shadow-soft hover:scale-[1.02] active:scale-[0.98] transition">
-            Start Automation Project
-          </a>
+<motion.div
+  variants={item}
+  className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
+>
+  {/* Primary CTA */}
+  <a
+    href="#contact"
+    className="
+      group inline-flex items-center justify-center gap-2
+      px-8 py-3 rounded-xl
+      bg-primary text-white
+      shadow-soft
+      hover:scale-[1.03]
+      active:scale-[0.98]
+      transition
+    "
+  >
+    Start Automation Project
 
-          <a className="px-8 py-3 rounded-xl bg-white/60 backdrop-blur border border-black/10 text-[rgba(20,20,20,0.75)] hover:bg-white transition">
-            View Work
-          </a>
-        </motion.div>
+    <FiArrowRight
+      className="transition-transform group-hover:translate-x-1"
+      size={18}
+    />
+  </a>
+
+  {/* Secondary CTA */}
+  <a
+    href="#work"
+    className="
+      group inline-flex items-center justify-center gap-2
+      px-8 py-3 rounded-xl
+      bg-white/60 backdrop-blur
+      border border-black/10
+      text-[rgba(20,20,20,0.75)]
+      hover:bg-white
+      transition
+    "
+  >
+    <FiEye size={18} className="opacity-70" />
+    View Work
+  </a>
+</motion.div>
       </motion.div>
     </section>
   );
