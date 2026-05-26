@@ -73,7 +73,7 @@ export default function Hero() {
           variants={item}
           className="mt-6 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/60 backdrop-blur border border-black/5 text-[rgba(20,20,20,0.65)] text-xs sm:text-sm shadow-sm"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+          <span className="w-2.5 h-2.5 rounded-full bg-primary shrink-0" />
           Available for Freelance • Automation Systems
         </motion.div>
 
@@ -97,14 +97,14 @@ export default function Hero() {
         </motion.p>
 
         {/* CTA */}
-<motion.div
-  variants={item}
-  className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
->
-  {/* Primary CTA */}
-  <a
-    href="#contact"
-    className="
+        <motion.div
+          variants={item}
+          className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
+        >
+          {/* Primary CTA */}
+          <a
+            href="#contact"
+            className="
       group inline-flex items-center justify-center gap-2
       px-8 py-3 rounded-xl
       bg-primary text-white
@@ -113,19 +113,18 @@ export default function Hero() {
       active:scale-[0.98]
       transition
     "
-  >
-    Start Automation Project
+          >
+            Start Automation Project
+            <FiArrowRight
+              className="transition-transform group-hover:translate-x-1"
+              size={18}
+            />
+          </a>
 
-    <FiArrowRight
-      className="transition-transform group-hover:translate-x-1"
-      size={18}
-    />
-  </a>
-
-  {/* Secondary CTA */}
-  <a
-    href="#work"
-    className="
+          {/* Secondary CTA */}
+          <a
+            href="#work"
+            className="
       group inline-flex items-center justify-center gap-2
       px-8 py-3 rounded-xl
       bg-white/60 backdrop-blur
@@ -134,11 +133,11 @@ export default function Hero() {
       hover:bg-white
       transition
     "
-  >
-    <FiEye size={18} className="opacity-70" />
-    View Work
-  </a>
-</motion.div>
+          >
+            <FiEye size={18} className="opacity-70" />
+            View Work
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );

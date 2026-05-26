@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import GlassBubbles from "./background/GlassBubbles";
-
+type TechPillProps = {
+  label: string;
+  delay?: number;
+};
 const groups = [
   {
     title: "Frontend",
@@ -54,7 +57,7 @@ const groups = [
   },
 ];
 
-function TechPill({ label, delay = 0 }) {
+function TechPill({ label, delay = 0 }: TechPillProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.9 }}

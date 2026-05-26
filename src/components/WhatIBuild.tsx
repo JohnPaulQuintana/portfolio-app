@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import GlassBubbles from "./background/GlassBubbles";
-
+import { type IconType } from "react-icons";
 import {
   FiCpu,
   FiGlobe,
@@ -9,7 +9,19 @@ import {
   FiLink,
 } from "react-icons/fi";
 
-const items = [
+type BuildItem = {
+  title: string;
+  desc: string;
+  icon: IconType;
+  size?: "lg" | "wide";
+};
+
+type CardProps = {
+  item: BuildItem;
+  index: number;
+};
+
+const items: BuildItem[] = [
   {
     title: "Automation Systems",
     desc: "End-to-end workflows that remove manual processes and connect tools seamlessly.",
@@ -39,7 +51,7 @@ const items = [
   },
 ];
 
-function Card({ item, index }) {
+function Card({ item, index }: CardProps) {
   const Icon = item.icon;
 
   return (
