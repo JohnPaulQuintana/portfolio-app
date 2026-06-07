@@ -26,7 +26,6 @@ const items: BuildItem[] = [
     title: "Automation Systems",
     desc: "End-to-end workflows that remove manual processes and connect tools seamlessly.",
     icon: FiCpu,
-    size: "lg",
   },
   {
     title: "Web Applications",
