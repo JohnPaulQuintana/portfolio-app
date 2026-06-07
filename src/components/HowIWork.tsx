@@ -58,84 +58,147 @@ function StepCard({ step, index }: StepCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 80 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.9,
-        delay: index * 0.08,
+        duration: 0.6,
+        delay: index * 0.05,
         ease: [0.25, 0.1, 0.25, 1],
       }}
-      whileHover={{ y: -8 }}
+      whileHover={{
+        scale: 1.015,
+      }}
+      whileTap={{
+        scale: 0.99,
+      }}
+      style={{
+        transform: "translateZ(0)",
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+      }}
       className="
-        group relative overflow-hidden
+        group
+        relative
+        overflow-hidden
+        transform-gpu
         rounded-[34px]
-        border border-white/30
+        border
+        border-white/30
         bg-white/35
         backdrop-blur-2xl
         shadow-[0_10px_40px_rgba(0,0,0,0.05)]
       "
     >
-      {/* glow */}
+      {/* ambient glow */}
       <motion.div
         animate={{
-          x: ["0%", "12%", "0%"],
-          y: ["0%", "10%", "0%"],
-          scale: [1, 1.08, 1],
+          scale: [1, 1.03, 1],
+          opacity: [0.5, 0.8, 0.5],
         }}
         transition={{
-          duration: 14,
+          duration: 10,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-primary-soft/20 blur-3xl"
+        className="
+          absolute
+          -top-20
+          -right-20
+          h-72
+          w-72
+          rounded-full
+          bg-primary-soft/20
+          blur-3xl
+        "
       />
 
-      {/* shine */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700">
-        <div className="absolute -left-40 top-0 h-full w-32 rotate-12 bg-white/30 blur-2xl group-hover:left-[120%] transition-all duration-[1600ms]" />
+      {/* glass shine */}
+      <div className="absolute inset-0 overflow-hidden opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div
+          className="
+            absolute
+            top-0
+            left-0
+            h-full
+            w-24
+            rotate-12
+            bg-white/20
+            blur-xl
+            -translate-x-[200%]
+            transition-transform
+            duration-1000
+            ease-out
+            group-hover:translate-x-[900%]
+          "
+        />
       </div>
 
       {/* border */}
       <div className="absolute inset-[1px] rounded-[32px] border border-white/20 pointer-events-none" />
 
       {/* number */}
-      <div className="absolute top-6 right-6 text-black/[0.06] text-6xl sm:text-7xl font-semibold">
+      <div className="absolute top-6 right-6 text-6xl font-semibold text-black/[0.06] sm:text-7xl">
         0{index + 1}
       </div>
 
       {/* content */}
       <div className="relative z-10 p-7 sm:p-9">
-
         {/* icon */}
         <motion.div
-          whileHover={{ rotate: 6, scale: 1.05 }}
+          whileHover={{
+            scale: 1.05,
+          }}
+          transition={{
+            duration: 0.2,
+          }}
           className="
-            w-14 h-14 rounded-2xl
-            bg-white/60 border border-white/40
+            flex
+            h-14
+            w-14
+            items-center
+            justify-center
+            rounded-2xl
+            border
+            border-white/40
+            bg-white/60
+            text-primary
             backdrop-blur-xl
-            flex items-center justify-center
-            text-primary shadow-sm
+            shadow-sm
           "
         >
           <Icon size={24} />
         </motion.div>
 
         {/* title */}
-        <h3 className="mt-8 text-2xl sm:text-3xl font-semibold text-black">
+        <h3 className="mt-8 text-2xl font-semibold text-black sm:text-3xl">
           {step.title}
         </h3>
 
         {/* desc */}
-        <p className="mt-4 text-black/60 text-sm sm:text-base">
+        <p className="mt-4 text-sm text-black/60 sm:text-base">
           {step.desc}
         </p>
 
-        {/* line */}
+        {/* ambient line */}
         <motion.div
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          className="mt-10 h-px w-full bg-gradient-to-r from-transparent via-primary-soft/50 to-transparent"
+          animate={{
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="
+            mt-10
+            h-px
+            w-full
+            bg-gradient-to-r
+            from-transparent
+            via-primary-soft/50
+            to-transparent
+          "
         />
       </div>
     </motion.div>
