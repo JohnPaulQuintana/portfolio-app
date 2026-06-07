@@ -56,30 +56,37 @@ function Card({ item, index }: CardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 80 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.9,
-        delay: index * 0.08,
+        duration: 0.6,
+        delay: index * 0.05,
         ease: [0.25, 0.1, 0.25, 1],
       }}
       whileHover={{
-        y: -8,
+        scale: 1.015,
+      }}
+      whileTap={{
+        scale: 0.99,
+      }}
+      style={{
+        transform: "translateZ(0)",
+        willChange: "transform",
+        backfaceVisibility: "hidden",
       }}
       className={`
         group
         relative
         overflow-hidden
+        transform-gpu
         rounded-[34px]
         border
         border-white/30
         bg-white/35
         backdrop-blur-2xl
         shadow-[0_10px_40px_rgba(0,0,0,0.05)]
-        transition-all
-        duration-500
-        
+
         ${
           item.size === "lg"
             ? "sm:col-span-2 min-h-[420px]"
@@ -89,61 +96,78 @@ function Card({ item, index }: CardProps) {
         }
       `}
     >
-      {/* animated glow */}
+      {/* ambient glow */}
       <motion.div
         animate={{
-          x: ["0%", "10%", "0%"],
-          y: ["0%", "8%", "0%"],
-          scale: [1, 1.05, 1],
+          scale: [1, 1.03, 1],
+          opacity: [0.5, 0.8, 0.5],
         }}
         transition={{
-          duration: 12,
+          duration: 10,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-primary-soft/20 blur-3xl"
+        className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-primary-soft/20 blur-3xl"
       />
 
       {/* glass shine */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700">
-        <div className="absolute -left-40 top-0 h-full w-32 rotate-12 bg-white/30 blur-2xl group-hover:left-[120%] transition-all duration-[1600ms]" />
+      <div className="absolute inset-0 overflow-hidden opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div
+          className="
+            absolute
+            top-0
+            left-0
+            h-full
+            w-24
+            rotate-12
+            bg-white/20
+            blur-xl
+            -translate-x-[200%]
+            transition-transform
+            duration-1000
+            ease-out
+            group-hover:translate-x-[900%]
+          "
+        />
       </div>
 
-      {/* floating border */}
+      {/* border */}
       <div className="absolute inset-[1px] rounded-[32px] border border-white/20 pointer-events-none" />
 
       {/* content */}
-      <div className="relative z-10 h-full flex flex-col justify-between p-7 sm:p-9">
-
+      <div className="relative z-10 flex h-full flex-col justify-between p-7 sm:p-9">
         <div>
           {/* icon */}
           <motion.div
             whileHover={{
-              rotate: 6,
-              scale: 1.06,
+              scale: 1.05,
             }}
-            transition={{ duration: 0.25 }}
+            transition={{
+              duration: 0.2,
+            }}
             className="
-              w-14 h-14
+              flex
+              h-14
+              w-14
+              items-center
+              justify-center
               rounded-2xl
+              border
+              border-white/40
               bg-white/60
-              border border-white/40
-              backdrop-blur-xl
-              flex items-center justify-center
               text-primary
+              backdrop-blur-xl
               shadow-sm
             "
           >
             <Icon size={24} />
           </motion.div>
 
-          {/* title */}
-          <h3 className="mt-8 text-2xl sm:text-3xl font-semibold tracking-tight text-black leading-tight">
+          <h3 className="mt-8 text-2xl font-semibold tracking-tight text-black leading-tight sm:text-3xl">
             {item.title}
           </h3>
 
-          {/* desc */}
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/60 max-w-md">
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-black/60 sm:text-base">
             {item.desc}
           </p>
         </div>
@@ -151,8 +175,7 @@ function Card({ item, index }: CardProps) {
         {/* ambient line */}
         <motion.div
           animate={{
-            opacity: [0.4, 1, 0.4],
-            scaleX: [0.9, 1, 0.9],
+            opacity: [0.5, 1, 0.5],
           }}
           transition={{
             duration: 4,
