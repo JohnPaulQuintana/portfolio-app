@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import GlassBubbles from "./background/GlassBubbles";
 import {
   FiGithub,
@@ -104,30 +104,96 @@ function ImageViewer({
 }) {
   const [activeIndex, setActiveIndex] = useState(index);
   const [scale, setScale] = useState(1);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
 
-  // sync when opening
-  useEffect(() => {
-    setActiveIndex(index);
-  }, [index]);
+  const start = useRef({ x: 0, y: 0 });
+  const pinchStart = useRef<number | null>(null);
 
   const image = images[activeIndex];
 
+  // lock background scroll (critical for mobile)
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [onClose]);
+  }, []);
 
+  // reset on image change
   useEffect(() => {
     setScale(1);
-  }, [activeIndex]);
+    setPos({ x: 0, y: 0 });
+    setActiveIndex(index);
+  }, [index]);
+
+  const clamp = (n: number, min: number, max: number) =>
+    Math.max(min, Math.min(max, n));
+
+  const getDistance = (t: React.TouchList) => {
+    const dx = t[0].clientX - t[1].clientX;
+    const dy = t[0].clientY - t[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
+  // TOUCH START
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      pinchStart.current = getDistance(e.touches);
+    } else if (e.touches.length === 1) {
+      start.current = {
+        x: e.touches[0].clientX - pos.x,
+        y: e.touches[0].clientY - pos.y,
+      };
+    }
+  };
+
+  // TOUCH MOVE (pinch + pan)
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && pinchStart.current) {
+      const newDist = getDistance(e.touches);
+      const zoom = newDist / pinchStart.current;
+      setScale(clamp(scale * zoom, 1, 3));
+      pinchStart.current = newDist;
+    }
+
+    if (e.touches.length === 1 && scale > 1) {
+      setPos({
+        x: e.touches[0].clientX - start.current.x,
+        y: e.touches[0].clientY - start.current.y,
+      });
+    }
+  };
+
+  const onTouchEnd = () => {
+    pinchStart.current = null;
+
+    if (scale <= 1) {
+      setPos({ x: 0, y: 0 });
+    }
+  };
+
+  const next = () => {
+    setActiveIndex((p) => (p + 1) % images.length);
+  };
+
+  const prev = () => {
+    setActiveIndex((p) => (p - 1 + images.length) % images.length);
+  };
+
+  const doubleTap = () => {
+    if (scale === 1) {
+      setScale(2.5);
+    } else {
+      setScale(1);
+      setPos({ x: 0, y: 0 });
+    }
+  };
 
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 bg-black/95 flex items-center justify-center z-[999]"
+        className="fixed inset-0 bg-black z-[999] flex items-center justify-center touch-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -136,53 +202,43 @@ function ImageViewer({
         {/* IMAGE */}
         <motion.img
           src={image}
-          className="max-h-[90vh] max-w-[90vw] select-none cursor-grab"
-          style={{ scale }}
-          animate={{ scale }}
-          transition={{ type: "spring", stiffness: 200, damping: 25 }}
-          drag={scale > 1}
-          dragConstraints={{ left: -400, right: 400, top: -300, bottom: 300 }}
-          onClick={(e) => e.stopPropagation()}
-          onDoubleClick={() => setScale((s) => (s === 1 ? 2.5 : 1))}
-          onWheel={(e) => {
-            e.preventDefault();
-            setScale((s) =>
-              Math.max(1, Math.min(3, s + (e.deltaY > 0 ? -0.2 : 0.2))),
-            );
+          className="max-h-[90vh] max-w-[90vw] select-none"
+          style={{
+            transform: `translate(${pos.x}px, ${pos.y}px) scale(${scale})`,
+            transition: "transform 0.12s ease-out",
           }}
+          onClick={(e) => e.stopPropagation()}
+          onDoubleClick={doubleTap}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         />
 
         {/* NAV */}
         {images.length > 1 && (
           <>
-            {/* LEFT */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setActiveIndex((p) => (p - 1 + images.length) % images.length);
+                prev();
               }}
-              className="absolute left-6 top-1/2 -translate-y-1/2 
-                 w-14 h-14 flex items-center justify-center
-                 rounded-full bg-white/10 hover:bg-white/20
-                 backdrop-blur-md border border-white/20
-                 text-white
-                 transition transform hover:scale-110 active:scale-95"
+              className="absolute left-4 top-1/2 -translate-y-1/2 
+                         w-14 h-14 flex items-center justify-center
+                         rounded-full bg-white/10 text-white
+                         backdrop-blur border border-white/20"
             >
               <FiChevronLeft className="text-2xl" />
             </button>
 
-            {/* RIGHT */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setActiveIndex((p) => (p + 1) % images.length);
+                next();
               }}
-              className="absolute right-6 top-1/2 -translate-y-1/2 
-                 w-14 h-14 flex items-center justify-center
-                 rounded-full bg-white/10 hover:bg-white/20
-                 backdrop-blur-md border border-white/20
-                 text-white
-                 transition transform hover:scale-110 active:scale-95"
+              className="absolute right-4 top-1/2 -translate-y-1/2 
+                         w-14 h-14 flex items-center justify-center
+                         rounded-full bg-white/10 text-white
+                         backdrop-blur border border-white/20"
             >
               <FiChevronRight className="text-2xl" />
             </button>
