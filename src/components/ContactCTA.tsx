@@ -13,19 +13,19 @@ const contacts = [
     label: "System Inquiry (Email)",
     value: "Direct project & system discussions",
     icon: FiMail,
-    href: "mailto:johnpaul@email.com",
+    href: "mailto:jpquintana01@gmail.com",
   },
   {
     label: "Automation Requests (Telegram)",
     value: "Fast coordination for workflows & systems",
     icon: FiSend,
-    href: "https://t.me/yourtelegram",
+    href: "https://t.me/exousianavi2",
   },
   {
     label: "Professional Profile (LinkedIn)",
     value: "Engineering background & experience",
     icon: FiLinkedin,
-    href: "https://linkedin.com",
+    href: "https://linkedin.com/in/john-paul-quintana118145287/",
   },
   {
     label: "System Portfolio",

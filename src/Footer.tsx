@@ -71,21 +71,21 @@ export default function Footer() {
 
                 <a
                   className="flex items-center gap-2 text-black/60 hover:text-primary transition"
-                  href="mailto:youremail@gmail.com"
+                  href="mailto:jpquintana01@gmail.com"
                 >
                   <FiMail size={14} /> Email
                 </a>
 
                 <a
                   className="flex items-center gap-2 text-black/60 hover:text-primary transition"
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/in/john-paul-quintana118145287/"
                 >
                   <FiLinkedin size={14} /> LinkedIn
                 </a>
 
                 <a
                   className="flex items-center gap-2 text-black/60 hover:text-primary transition"
-                  href="https://t.me"
+                  href="https://t.me/exousianavi2"
                 >
                   <FiSend size={14} /> Telegram
                 </a>

@@ -1,43 +1,57 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GlassBubbles from "./background/GlassBubbles";
-import { FiGithub, FiExternalLink } from "react-icons/fi";
+import {
+  FiGithub,
+  FiExternalLink,
+  FiLock,
+  FiChevronLeft,
+  FiChevronRight,
+  FiZoomIn,
+} from "react-icons/fi";
 
 /* =========================
    PROJECT DATA
-========================= */
-/* =========================
-   PROJECT DATA (SENIOR SYSTEM VERSION)
 ========================= */
 const projects = [
   {
     title: "Enterprise Marketing Data Orchestration System",
     category: "Data Engineering / Automation Platform",
-    desc:
-      "Centralized automation system that aggregates advertising performance data across multiple platforms and standardizes reporting pipelines for business intelligence workflows.",
+    confidential: true,
+
+    desc: "Centralized automation platform that aggregates advertising performance data across multiple marketing channels and standardizes reporting workflows.",
+
     impact:
-      "Eliminated manual reporting workflows and improved cross-platform data consistency across marketing operations.",
-    tech: ["Playwright", "Node.js", "Docker", "ETL Pipelines"],
-    images: [
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
+      "Eliminated manual reporting processes and improved cross-platform data consistency.",
+
+    tech: [
+      "Playwright",
+      "Python",
+      "Web Scrapping",
+      "Google Sheets",
+      "ETL Pipelines",
     ],
-    repo: "https://github.com/yourname/project",
-    live: "https://your-live-demo.com",
+
+    images: ["/flow/1.png"],
+
+    repo: null,
+    live: null,
   },
 
   {
     title: "Real-Time Financial Data Processing Engine",
     category: "Market Data / Backend Systems",
-    desc:
-      "Scheduled data ingestion and normalization engine that processes crypto market data from external exchanges and synchronizes computed rates into internal business systems.",
+    confidential: true,
+
+    desc: "Automated ingestion and normalization engine that processes market data from external exchanges and synchronizes computed rates into internal systems.",
+
     impact:
-      "Enabled consistent real-time financial visibility for internal reporting and operational decision-making.",
+      "Enabled reliable real-time financial visibility for operational reporting.",
+
     tech: ["Node.js", "APIs", "Cron Jobs", "Data Pipelines"],
-    images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
-    ],
+
+    images: ["/flow/2.png"],
+
     repo: null,
     live: null,
   },
@@ -45,15 +59,17 @@ const projects = [
   {
     title: "Controlled Data Execution & Reporting Platform",
     category: "Data Governance / Internal Tools",
-    desc:
-      "Secure execution layer that orchestrates SQL-based reporting workflows through task-driven inputs, replacing direct database access with controlled execution pipelines.",
+    confidential: true,
+
+    desc: "Secure execution layer that orchestrates SQL-based reporting workflows through controlled pipelines.",
+
     impact:
-      "Improved data governance, reduced operational risk, and standardized reporting workflows across teams.",
-    tech: ["Electron", "SQL", "Node.js", "Task Automation"],
-    images: [
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1600&auto=format&fit=crop",
-    ],
+      "Improved governance, reduced operational risk, and standardized reporting workflows across teams.",
+
+    tech: ["Electron", "SQL", "Node.js"],
+
+    images: ["/flow/3.png"],
+
     repo: null,
     live: null,
   },
@@ -61,24 +77,128 @@ const projects = [
   {
     title: "Enterprise Spreadsheet Observability & Monitoring System",
     category: "Observability / Reporting Infrastructure",
-    desc:
-      "System-wide monitoring platform that tracks spreadsheet freshness, detects stale data states, and triggers real-time alerts for reporting integrity across business units.",
+    confidential: true,
+
+    desc: "Monitoring platform that tracks spreadsheet freshness and triggers alerts for reporting integrity issues.",
+
     impact:
       "Improved data reliability and introduced proactive monitoring for business-critical reporting systems.",
+
     tech: ["Node.js", "Schedulers", "Telegram API", "Monitoring"],
-    images: [
-      "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=1600&auto=format&fit=crop",
-    ],
+
+    images: ["/flow/4.png"],
+
     repo: null,
     live: null,
   },
 ];
+
+function ImageViewer({
+  images,
+  index,
+  onClose,
+}: {
+  images: string[];
+  index: number;
+  onClose: () => void;
+}) {
+  const [activeIndex, setActiveIndex] = useState(index);
+  const [scale, setScale] = useState(1);
+
+  // sync when opening
+  useEffect(() => {
+    setActiveIndex(index);
+  }, [index]);
+
+  const image = images[activeIndex];
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  useEffect(() => {
+    setScale(1);
+  }, [activeIndex]);
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 bg-black/95 flex items-center justify-center z-[999]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        {/* IMAGE */}
+        <motion.img
+          src={image}
+          className="max-h-[90vh] max-w-[90vw] select-none cursor-grab"
+          style={{ scale }}
+          animate={{ scale }}
+          transition={{ type: "spring", stiffness: 200, damping: 25 }}
+          drag={scale > 1}
+          dragConstraints={{ left: -400, right: 400, top: -300, bottom: 300 }}
+          onClick={(e) => e.stopPropagation()}
+          onDoubleClick={() => setScale((s) => (s === 1 ? 2.5 : 1))}
+          onWheel={(e) => {
+            e.preventDefault();
+            setScale((s) =>
+              Math.max(1, Math.min(3, s + (e.deltaY > 0 ? -0.2 : 0.2))),
+            );
+          }}
+        />
+
+        {/* NAV */}
+        {images.length > 1 && (
+          <>
+            {/* LEFT */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveIndex((p) => (p - 1 + images.length) % images.length);
+              }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 
+                 w-14 h-14 flex items-center justify-center
+                 rounded-full bg-white/10 hover:bg-white/20
+                 backdrop-blur-md border border-white/20
+                 text-white
+                 transition transform hover:scale-110 active:scale-95"
+            >
+              <FiChevronLeft className="text-2xl" />
+            </button>
+
+            {/* RIGHT */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveIndex((p) => (p + 1) % images.length);
+              }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 
+                 w-14 h-14 flex items-center justify-center
+                 rounded-full bg-white/10 hover:bg-white/20
+                 backdrop-blur-md border border-white/20
+                 text-white
+                 transition transform hover:scale-110 active:scale-95"
+            >
+              <FiChevronRight className="text-2xl" />
+            </button>
+          </>
+        )}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 /* =========================
    IMAGE SLIDER
 ========================= */
 function ImageSlider({ images = [] }: { images: string[] }) {
   const [index, setIndex] = useState(0);
+  const [viewerOpen, setViewerOpen] = useState(false);
 
   const safeImages =
     images.length > 0
@@ -89,45 +209,113 @@ function ImageSlider({ images = [] }: { images: string[] }) {
   const prev = () =>
     setIndex((p) => (p - 1 + safeImages.length) % safeImages.length);
 
-  return (
-    <div className="relative overflow-hidden rounded-[36px]">
-      <AnimatePresence mode="wait">
-        <motion.img
-          key={index}
-          src={safeImages[index]}
-          loading="lazy"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="h-[420px] w-full object-cover"
-          style={{
-            transform: "translateZ(0)",
-            backfaceVisibility: "hidden",
-          }}
-        />
-      </AnimatePresence>
+  // prevent background scroll when viewer is open
+  useEffect(() => {
+    if (viewerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [viewerOpen]);
 
-      {safeImages.length > 1 && (
-        <div className="absolute bottom-4 right-4 flex gap-2">
+  return (
+    <>
+      {/* MAIN IMAGE */}
+      <div
+        className="relative overflow-hidden rounded-[36px] h-[420px] w-full group cursor-zoom-in"
+        onClick={() => setViewerOpen(true)}
+      >
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={index}
+            src={safeImages[index]}
+            loading="lazy"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="h-full w-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-300"
+          />
+        </AnimatePresence>
+
+        {/* CENTER BUTTON */}
+        <div className="absolute inset-0 flex items-center justify-center">
           <button
-            className="w-9 h-9 rounded-full bg-white/70 backdrop-blur border"
-            onClick={prev}
+            onClick={() => setViewerOpen(true)}
+            className="flex items-center gap-2 px-5 py-3
+               rounded-full bg-black/60 hover:bg-black/70
+               text-white text-sm font-medium
+               backdrop-blur-md border border-white/20
+               shadow-lg transition active:scale-95"
           >
-            ←
-          </button>
-          <button
-            className="w-9 h-9 rounded-full bg-white/70 backdrop-blur border"
-            onClick={next}
-          >
-            →
+            <FiZoomIn className="text-lg" />
+            <span>View Full Image</span>
           </button>
         </div>
+
+        {/* ARROWS */}
+        {safeImages.length > 1 && (
+          <div className="absolute bottom-4 right-4 flex gap-2">
+            {/* PREV */}
+            <button
+              aria-label="Previous image"
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
+              className="w-11 h-11 flex items-center justify-center
+                 rounded-full bg-black/40 hover:bg-black/60
+                 text-white backdrop-blur-md border border-white/20
+                 transition active:scale-95"
+            >
+              <FiChevronLeft className="text-xl" />
+            </button>
+
+            {/* NEXT */}
+            <button
+              aria-label="Next image"
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
+              className="w-11 h-11 flex items-center justify-center
+                 rounded-full bg-black/40 hover:bg-black/60
+                 text-white backdrop-blur-md border border-white/20
+                 transition active:scale-95"
+            >
+              <FiChevronRight className="text-xl" />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* THUMBNAILS */}
+      {safeImages.length > 1 && (
+        <div className="mt-3 flex gap-2">
+          {safeImages.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              onClick={() => setIndex(i)}
+              className={`h-14 w-14 object-cover rounded-lg cursor-pointer border ${
+                i === index ? "border-black" : "border-transparent"
+              }`}
+            />
+          ))}
+        </div>
       )}
-    </div>
+
+      {/* VIEWER */}
+      {viewerOpen && (
+        <ImageViewer
+          images={safeImages}
+          index={index}
+          onClose={() => setViewerOpen(false)}
+        />
+      )}
+    </>
   );
 }
-
 /* =========================
    PROJECT CARD
 ========================= */
@@ -142,58 +330,59 @@ function ProjectCard({
 }) {
   const num = String(index + 1).padStart(2, "0");
 
+  const hasRepo = !!project.repo;
+  const hasLive = !!project.live;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
-      transition={{
-        duration: 0.55,
-        delay: index * 0.05,
-      }}
-      className={`relative grid lg:grid-cols-2 gap-14 items-center py-10 ${
+      transition={{ duration: 0.55, delay: index * 0.05 }}
+      className={`relative grid lg:grid-cols-2 gap-14 items-center py-12 ${
         reverse ? "lg:[&>*:first-child]:order-2" : ""
       }`}
     >
-      {/* BIG BACKGROUND NUMBER */}
-      <div className="absolute -top-10 left-0 text-[180px] font-semibold text-black/5 select-none pointer-events-none">
+      {/* BIG NUMBER */}
+      <div className="absolute left-0 md:left-auto md:right-4 top-1/2 -translate-y-1/2 text-[240px] font-bold text-primary/10 pointer-events-none select-none">
         {num}
       </div>
 
       {/* IMAGE */}
       <div className="relative">
-        <div className="absolute inset-0 bg-primary-soft/10 blur-3xl rounded-[40px]" />
+        <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-[40px]" />
         <ImageSlider images={project.images} />
       </div>
 
       {/* CONTENT */}
       <div className="relative z-10">
-        {/* category + number badge */}
-        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/50 border text-primary text-xs">
-          <span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-semibold">
-            {num}
-          </span>
-          <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-          {project.category}
+        {/* CONFIDENTIAL BADGE */}
+        <div className="mb-3">
+          {project.confidential && (
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-xs text-red-600 font-medium shadow-sm">
+              <FiLock className="text-xs" />
+              Confidential System
+            </span>
+          )}
         </div>
 
-        {/* title */}
-        <h3 className="mt-8 text-4xl font-semibold text-black">
+        {/* TITLE */}
+        <h3 className="mt-6 text-4xl font-semibold text-black">
           {project.title}
         </h3>
 
-        {/* desc */}
-        <p className="mt-6 text-black/60 leading-relaxed">{project.desc}</p>
+        {/* DESC */}
+        <p className="mt-4 text-black/60 leading-relaxed">{project.desc}</p>
 
-        {/* impact */}
-        <div className="mt-8 p-5 rounded-3xl bg-white/40 border">
+        {/* IMPACT */}
+        <div className="mt-6 p-5 rounded-3xl bg-white/40 border">
           <div className="text-xs uppercase tracking-widest text-primary">
             Impact
           </div>
-          <div className="mt-2 text-xl font-semibold">{project.impact}</div>
+          <div className="mt-2 text-lg font-semibold">{project.impact}</div>
         </div>
 
-        {/* tech */}
+        {/* TECH */}
         <div className="mt-6 flex flex-wrap gap-2">
           {project.tech.map((t) => (
             <span
@@ -205,25 +394,33 @@ function ProjectCard({
           ))}
         </div>
 
-        {/* LINKS */}
+        {/* LINKS (ENABLED / DISABLED STYLE) */}
         <div className="mt-8 flex gap-3">
-          {project.repo && (
-            <a
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/60 border"
-              href={project.repo}
-            >
-              <FiGithub /> Repo
-            </a>
-          )}
+          {/* GITHUB */}
+          <button
+            disabled={!hasRepo}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition
+              ${
+                hasRepo
+                  ? "bg-white/60 hover:bg-white/80 text-black"
+                  : "bg-black/5 text-black/30 cursor-not-allowed"
+              }`}
+          >
+            <FiGithub /> GitHub
+          </button>
 
-          {project.live && (
-            <a
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white"
-              href={project.live}
-            >
-              <FiExternalLink /> Live
-            </a>
-          )}
+          {/* LIVE */}
+          <button
+            disabled={!hasLive}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl transition
+              ${
+                hasLive
+                  ? "bg-primary text-white hover:opacity-90"
+                  : "bg-black/5 text-black/30 cursor-not-allowed"
+              }`}
+          >
+            <FiExternalLink /> Live
+          </button>
         </div>
       </div>
     </motion.div>
@@ -240,38 +437,36 @@ export default function SelectedProjects() {
         <GlassBubbles />
       </div>
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[1200px] bg-primary-soft/10 blur-[220px] rounded-full" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[1200px] bg-primary/10 blur-[220px] rounded-full" />
 
-      {/* heading */}
+      {/* HEADER */}
       <div className="relative z-10 max-w-3xl mx-auto text-center px-6">
-        <h2 className="mt-8 text-4xl sm:text-6xl font-semibold text-black leading-[1]">
-          Systems designed
-          <br />
-          for real operations.
+        <h2 className="mt-8 text-5xl font-semibold text-black">
+          Systems designed for real operations
         </h2>
 
-        <p className="mt-6 text-black/60 text-base sm:text-lg">
-          Automation systems, web platforms, desktop software, and mobile apps
-          crafted for modern businesses.
+        <p className="mt-6 text-black/60">
+          Automation platforms, backend systems, and internal tools built for
+          scale.
         </p>
       </div>
 
-      {/* projects */}
+      {/* PROJECTS */}
       <div className="relative z-10 mt-20 max-w-7xl mx-auto px-6 md:px-28">
-        <div className="space-y-24 sm:space-y-32">
+        <div className="relative space-y-28">
           {projects.map((project, i) => (
             <div key={project.title} className="relative">
-              {/* SECTION NUMBER (NEW) */}
-              <div className="absolute -top-10 left-0 text-black/10 text-6xl sm:text-7xl font-bold select-none">
+              {/* SECTION DIVIDER */}
+              {i !== 0 && (
+                <div className="absolute -top-14 left-1/2 -translate-x-1/2 w-full max-w-6xl h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+              )}
+
+              {/* SECTION NUMBER BACKGROUND */}
+              <div className="absolute -top-10 left-0 text-black/5 text-7xl font-bold select-none">
                 {String(i + 1).padStart(2, "0")}
               </div>
 
-              {/* subtle divider line (NEW separation) */}
-              {i !== 0 && (
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-full max-w-5xl h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
-              )}
-
-              {/* actual card */}
+              {/* CARD */}
               <ProjectCard project={project} reverse={i % 2 !== 0} index={i} />
             </div>
           ))}
