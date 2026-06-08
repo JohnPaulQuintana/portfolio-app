@@ -80,7 +80,7 @@ export default function Hero() {
         {/* HEADLINE (Apple-style typography = NO fancy letter animation) */}
         <motion.h1
           variants={item}
-          className="mt-10 sm:mt-14 text-[2.5rem] sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-[rgba(20,20,20,0.92)]"
+          className="mt-10 sm:mt-14 text-[2.5rem] sm:text-6xl md:text-6xl font-semibold leading-[1.05] tracking-tight text-[rgba(20,20,20,0.92)]"
         >
           {text1}
           <br />

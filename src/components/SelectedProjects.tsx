@@ -6,13 +6,18 @@ import { FiGithub, FiExternalLink } from "react-icons/fi";
 /* =========================
    PROJECT DATA
 ========================= */
+/* =========================
+   PROJECT DATA (SENIOR SYSTEM VERSION)
+========================= */
 const projects = [
   {
-    title: "Workflow Automation Engine",
-    category: "Automation System",
-    desc: "Automated browser workflows, scheduled scraping systems, reporting pipelines, and API integrations for operational processes.",
-    impact: "Reduced repetitive manual work and improved operational speed",
-    tech: ["Playwright", "Node.js", "Docker", "APIs"],
+    title: "Enterprise Marketing Data Orchestration System",
+    category: "Data Engineering / Automation Platform",
+    desc:
+      "Centralized automation system that aggregates advertising performance data across multiple platforms and standardizes reporting pipelines for business intelligence workflows.",
+    impact:
+      "Eliminated manual reporting workflows and improved cross-platform data consistency across marketing operations.",
+    tech: ["Playwright", "Node.js", "Docker", "ETL Pipelines"],
     images: [
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
@@ -22,11 +27,13 @@ const projects = [
   },
 
   {
-    title: "Enterprise Web Platform",
-    category: "Web Application",
-    desc: "Modern internal management platform with dashboards, reporting systems, authentication, and workflow tracking.",
-    impact: "Centralized operations and improved team productivity",
-    tech: ["React", "TypeScript", "Supabase", "TailwindCSS"],
+    title: "Real-Time Financial Data Processing Engine",
+    category: "Market Data / Backend Systems",
+    desc:
+      "Scheduled data ingestion and normalization engine that processes crypto market data from external exchanges and synchronizes computed rates into internal business systems.",
+    impact:
+      "Enabled consistent real-time financial visibility for internal reporting and operational decision-making.",
+    tech: ["Node.js", "APIs", "Cron Jobs", "Data Pipelines"],
     images: [
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
@@ -36,11 +43,13 @@ const projects = [
   },
 
   {
-    title: "Mobile Field Reporting App",
-    category: "Android Application",
-    desc: "Cross-platform mobile app for field teams with offline sync, real-time updates, and cloud-connected workflows.",
-    impact: "Enabled faster field reporting and mobile-first operations",
-    tech: ["React Native", "Expo", "PostgreSQL"],
+    title: "Controlled Data Execution & Reporting Platform",
+    category: "Data Governance / Internal Tools",
+    desc:
+      "Secure execution layer that orchestrates SQL-based reporting workflows through task-driven inputs, replacing direct database access with controlled execution pipelines.",
+    impact:
+      "Improved data governance, reduced operational risk, and standardized reporting workflows across teams.",
+    tech: ["Electron", "SQL", "Node.js", "Task Automation"],
     images: [
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1600&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1600&auto=format&fit=crop",
@@ -50,11 +59,13 @@ const projects = [
   },
 
   {
-    title: "Operations Desktop Suite",
-    category: "Desktop Application",
-    desc: "Desktop software for monitoring reports, tracking operational tasks, and managing business workflows in one place.",
-    impact: "Improved visibility and monitoring across teams",
-    tech: ["Electron", "React", "TypeScript"],
+    title: "Enterprise Spreadsheet Observability & Monitoring System",
+    category: "Observability / Reporting Infrastructure",
+    desc:
+      "System-wide monitoring platform that tracks spreadsheet freshness, detects stale data states, and triggers real-time alerts for reporting integrity across business units.",
+    impact:
+      "Improved data reliability and introduced proactive monitoring for business-critical reporting systems.",
+    tech: ["Node.js", "Schedulers", "Telegram API", "Monitoring"],
     images: [
       "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=1600&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=1600&auto=format&fit=crop",
@@ -63,7 +74,6 @@ const projects = [
     live: null,
   },
 ];
-
 /* =========================
    IMAGE SLIDER
 ========================= */

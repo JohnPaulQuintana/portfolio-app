@@ -3,28 +3,103 @@ import GlassBubbles from "./background/GlassBubbles";
 
 const cases = [
   {
-    title: "Automated Reporting Pipeline",
+    title: "Enterprise Ad Operations Data Pipeline",
     problem:
-      "Teams manually generated reports every day across multiple sheets.",
+      "Advertising performance data was fragmented across multiple platforms, requiring manual extraction and consolidation into reporting sheets.",
     solution:
-      "Built an automation workflow that collects, validates, and generates reports automatically.",
-    result: "Reduced reporting time from 3 hours to 10 minutes.",
+      "Designed and implemented an automated data pipeline that aggregates advertising metrics from multiple ad networks and synchronizes structured reporting data into centralized sheets.",
+    result:
+      "Standardized reporting workflow across marketing operations and eliminated manual data compilation.",
   },
 
   {
-    title: "Internal Operations Dashboard",
-    problem: "Managers had no centralized visibility of ongoing operations.",
+    title: "Real-Time Crypto Market Data & Pricing System",
+    problem:
+      "Business systems lacked a reliable mechanism to continuously track and normalize crypto market data for internal pricing and reporting.",
     solution:
-      "Created a real-time dashboard with analytics, tracking, and monitoring tools.",
-    result: "Improved operational visibility across departments.",
+      "Built a scheduled data ingestion system that collects market data from Binance, applies rate normalization logic, and updates internal backoffice systems on an hourly cadence.",
+    result:
+      "Enabled consistent real-time financial visibility across internal trading and reporting tools.",
   },
 
   {
-    title: "Mobile Field Reporting System",
-    problem: "Field teams relied on paper-based reporting and delayed updates.",
+    title: "Controlled SQL Execution & Reporting Desktop Platform",
+    problem:
+      "Teams were directly accessing analytics infrastructure (Superset) and executing unmanaged SQL queries, creating operational risk and inconsistency.",
     solution:
-      "Developed a mobile app for instant submissions with cloud syncing.",
-    result: "Faster reporting and reduced manual encoding errors.",
+      "Architected a desktop execution layer that integrates with Asana task workflows, allowing controlled SQL execution and generating standardized, downloadable reporting outputs without direct database access.",
+    result:
+      "Improved data governance, reduced query-level risk, and enforced controlled reporting workflows.",
+  },
+
+  {
+    title: "Enterprise Spreadsheet Governance & Monitoring System",
+    problem:
+      "Critical business spreadsheets lacked observability, resulting in outdated reports and delayed updates across teams.",
+    solution:
+      "Developed a centralized monitoring system that scans registered spreadsheets, evaluates update timestamps, and detects stale reporting states. Integrated alerting via Telegram for team leads.",
+    result:
+      "Improved data reliability across reporting operations and introduced proactive monitoring for business-critical spreadsheets.",
+  },
+
+  {
+    title: "Multi-Platform Ad Account Monitoring System",
+    problem:
+      "Ad account balances across multiple platforms (Adsterra, AdCash, and others) were tracked manually, increasing operational overhead and risk of oversight.",
+    solution:
+      "Built a centralized monitoring system that aggregates account balance data across advertising platforms and standardizes visibility into financial status.",
+    result:
+      "Reduced operational monitoring effort and improved financial oversight across ad operations.",
+  },
+
+  {
+    title: "Identity Verification & Compliance KYC Platform (Face API Integration)",
+    problem:
+      "User onboarding required manual identity verification, creating delays and inconsistent validation outcomes.",
+    solution:
+      "Engineered a KYC verification workflow using Face API for facial detection and matching, combined with camera-based ID capture (front/back), validation checks, and watermarking for audit integrity before submission to backoffice systems.",
+    result:
+      "Streamlined identity verification workflow and improved compliance processing efficiency.",
+  },
+
+  {
+    title: "Risk Intelligence & Abuse Detection API",
+    problem:
+      "Risk operations lacked a unified system to detect fraudulent behaviors such as multi-accounting and bonus abuse across backend systems.",
+    solution:
+      "Developed a centralized risk analysis API that aggregates backend signals and applies rule-based detection for suspicious account patterns and behavioral anomalies.",
+    result:
+      "Strengthened fraud detection capabilities and improved risk enforcement across systems.",
+  },
+
+  {
+    title: "Unified Email Aggregation & Workspace Client (NaviSync)",
+    problem:
+      "Users managing multiple email accounts lacked a centralized interface for monitoring communications.",
+    solution:
+      "Built a unified read-only email aggregation client that connects multiple email providers into a single interface for consolidated viewing.",
+    result:
+      "Improved productivity by reducing context switching across email platforms.",
+  },
+
+  {
+    title: "Distributed Link Intelligence & Management Platform (NaviLink)",
+    problem:
+      "Important digital resources and links were scattered across multiple tools, chats, and notes with no structured organization.",
+    solution:
+      "Designed a link management system that enables categorization, storage, and controlled sharing of digital resources across teams and users.",
+    result:
+      "Improved knowledge organization and enabled structured information sharing.",
+  },
+
+  {
+    title: "Indoor Navigation & Spatial Mapping Engine (NaviAtlas)",
+    problem:
+      "There was no efficient system to test, simulate, and validate indoor SVG-based navigation maps for spatial layouts.",
+    solution:
+      "Built an indoor mapping and visualization engine that supports SVG-based spatial structures for testing navigation paths and layout validation.",
+    result:
+      "Accelerated prototyping and validation of indoor navigation systems for spatial applications.",
   },
 ];
 

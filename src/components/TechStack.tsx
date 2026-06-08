@@ -5,36 +5,53 @@ type TechPillProps = {
 };
 const groups = [
   {
-    title: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
-  },
-  {
-    title: "Backend",
-    items: ["Node.js", "Express", "Laravel", "Python", "REST APIs"],
-  },
-  {
-    title: "Automation",
+    title: "Frontend Systems",
     items: [
-      "Playwright",
-      "Puppeteer",
-      "Browserless",
-      "Web Scraping",
-      "Workflow Automation",
+      "React (Component-driven architecture)",
+      "TypeScript (Type-safe UI systems)",
+      "TailwindCSS (Design system implementation)",
+      "Framer Motion (UI interaction systems)",
     ],
   },
   {
-    title: "Mobile & Desktop",
-    items: ["React Native", "Expo", "Electron", "Cross-platform Apps"],
+    title: "Backend & APIs",
+    items: [
+      "Node.js (Service layer architecture)",
+      "Express (RESTful API design)",
+      "Laravel (Enterprise backend systems)",
+      "Python (Data + automation services)",
+      "REST / Network APIs (External system integrations)",
+    ],
   },
   {
-    title: "Infrastructure",
+    title: "Automation & Data Pipelines",
     items: [
-      "Supabase",
-      "PostgreSQL",
-      "Docker",
-      "Render",
-      "Vercel",
-      "GitHub Actions",
+      "Playwright (Browser automation workflows)",
+      "Puppeteer (Headless execution systems)",
+      "Browserless (Scalable scraping infrastructure)",
+      "Web Scraping (Data extraction pipelines)",
+      "Workflow Automation (Event-driven task systems)",
+    ],
+  },
+  {
+    title: "Mobile & Desktop Systems",
+    items: [
+      "React Native (Cross-platform application architecture)",
+      "Expo (Rapid mobile deployment pipeline)",
+      "Electron (Desktop automation tools)",
+      "Cross-platform Systems (Unified codebase delivery)",
+    ],
+  },
+  {
+    title: "Infrastructure & DevOps",
+    items: [
+      "Supabase (Backend-as-a-service architecture)",
+      "PostgreSQL (Relational data modeling)",
+      "Docker (Containerized deployment systems)",
+      "Render (Cloud deployment pipelines)",
+      "Vercel (Edge deployment workflows)",
+      "GitHub Actions (CI/CD automation)",
+      "Hostinger (Production hosting & DNS management)",
     ],
   },
 ];
