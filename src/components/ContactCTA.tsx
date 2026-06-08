@@ -5,7 +5,7 @@ import {
   FiLinkedin,
   FiArrowUpRight,
   FiGlobe,
-  FiCpu,
+  // FiCpu,
 } from "react-icons/fi";
 
 const contacts = [
