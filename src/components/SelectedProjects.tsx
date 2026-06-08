@@ -257,7 +257,7 @@ export default function SelectedProjects() {
       </div>
 
       {/* projects */}
-      <div className="relative z-10 mt-20 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 mt-20 max-w-7xl mx-auto px-6 md:px-28">
         <div className="space-y-24 sm:space-y-32">
           {projects.map((project, i) => (
             <div key={project.title} className="relative">

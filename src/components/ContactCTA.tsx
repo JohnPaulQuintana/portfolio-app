@@ -1,42 +1,44 @@
 import { motion } from "framer-motion";
 import {
   FiMail,
-  FiFacebook,
   FiSend,
   FiLinkedin,
   FiArrowUpRight,
+  FiGlobe,
+  FiCpu,
 } from "react-icons/fi";
 
-const socials = [
+const contacts = [
   {
-    label: "Email",
-    value: "johnpaul@email.com",
+    label: "System Inquiry (Email)",
+    value: "Direct project & system discussions",
     icon: FiMail,
     href: "mailto:johnpaul@email.com",
   },
   {
-    label: "Telegram",
-    value: "@yourtelegram",
+    label: "Automation Requests (Telegram)",
+    value: "Fast coordination for workflows & systems",
     icon: FiSend,
     href: "https://t.me/yourtelegram",
   },
   {
-    label: "Facebook",
-    value: "facebook.com/jp.dev",
-    icon: FiFacebook,
-    href: "https://facebook.com",
-  },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/jpdev",
+    label: "Professional Profile (LinkedIn)",
+    value: "Engineering background & experience",
     icon: FiLinkedin,
     href: "https://linkedin.com",
+  },
+  {
+    label: "System Portfolio",
+    value: "Live projects, architectures & case studies",
+    icon: FiGlobe,
+    href: "#projects",
   },
 ];
 
 export default function ContactCTA() {
   return (
     <section className="relative overflow-hidden rounded-[36px]">
+
       {/* glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-150px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-primary-soft/20 blur-[200px] rounded-full" />
@@ -44,10 +46,10 @@ export default function ContactCTA() {
 
       {/* MAIN CARD */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         className="
           relative z-10
           max-w-5xl mx-auto
@@ -60,28 +62,30 @@ export default function ContactCTA() {
           shadow-[0_30px_100px_rgba(0,0,0,0.12)]
         "
       >
+
         {/* HEADER */}
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight text-black leading-[1.1]">
-            Let’s build something
+            Let’s connect
             <br />
-            meaningful together
+            and build systems
           </h2>
 
           <p className="mt-6 text-black/60 text-base sm:text-lg">
-            Reach out through any platform below — I usually respond within a day.
+            Open for automation systems, backend architecture, data pipelines,
+            and full-stack product engineering work.
           </p>
         </div>
 
-        {/* SOCIAL LIST */}
+        {/* CONTACT LIST */}
         <div className="mt-14 space-y-4">
-          {socials.map((s, i) => {
-            const Icon = s.icon;
+          {contacts.map((c, i) => {
+            const Icon = c.icon;
 
             return (
               <motion.a
                 key={i}
-                href={s.href}
+                href={c.href}
                 target="_blank"
                 rel="noreferrer"
                 whileTap={{ scale: 0.98 }}
@@ -111,10 +115,10 @@ export default function ContactCTA() {
 
                   <div>
                     <div className="text-base font-semibold text-black">
-                      {s.label}
+                      {c.label}
                     </div>
                     <div className="text-sm text-black/50">
-                      {s.value}
+                      {c.value}
                     </div>
                   </div>
                 </div>
@@ -130,7 +134,7 @@ export default function ContactCTA() {
 
         {/* FOOT NOTE */}
         <div className="mt-14 text-center text-sm text-black/40">
-          Available for freelance automation • web • mobile • desktop systems
+          Systems engineering • Automation • APIs • Scalable architecture
         </div>
       </motion.div>
     </section>

@@ -1,16 +1,22 @@
-import { FiMail, FiFacebook, FiLinkedin, FiSend, FiArrowUp } from "react-icons/fi";
+import {
+  FiMail,
+  FiLinkedin,
+  FiSend,
+  FiArrowUp,
+  FiGlobe,
+  FiDatabase,
+  FiCpu,
+} from "react-icons/fi";
 
 export default function Footer() {
   return (
     <footer className="relative py-20 overflow-hidden">
-      
       {/* BACKGROUND GLOW */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-[-180px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-primary-soft/10 blur-[200px] rounded-full" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-
         {/* GLASS CARD */}
         <div className="
           rounded-[28px]
@@ -31,49 +37,59 @@ export default function Footer() {
               </div>
 
               <p className="mt-4 text-black/60 text-sm leading-relaxed">
-                Automation Engineer & Full-Stack Developer building systems that remove manual work and scale businesses.
+                Systems Engineer focused on automation, backend infrastructure,
+                and scalable application architecture that reduces manual work
+                and improves operational efficiency.
               </p>
             </div>
 
-            {/* LINKS */}
+            {/* ENGINEERING STACK LINKS */}
             <div className="grid grid-cols-2 gap-10 text-sm">
 
-              {/* WORK */}
               <div className="space-y-3">
-                <div className="text-black font-medium">Work</div>
+                <div className="text-black font-medium">Engineering</div>
 
-                <a className="block text-black/60 hover:text-primary transition" href="#projects">
-                  Projects
-                </a>
-                <a className="block text-black/60 hover:text-primary transition" href="#services">
-                  Services
-                </a>
-                <a className="block text-black/60 hover:text-primary transition" href="#process">
-                  Process
-                </a>
+                <div className="flex items-center gap-2 text-black/60">
+                  <FiCpu size={14} />
+                  System Design
+                </div>
+
+                <div className="flex items-center gap-2 text-black/60">
+                  <FiDatabase size={14} />
+                  Data Pipelines
+                </div>
+
+                <div className="flex items-center gap-2 text-black/60">
+                  <FiGlobe size={14} />
+                  Web Platforms
+                </div>
               </div>
 
               {/* CONNECT */}
               <div className="space-y-3">
-                <div className="text-black font-medium">Connect</div>
+                <div className="text-black font-medium">Contact</div>
 
-                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="mailto:youremail@gmail.com">
+                <a
+                  className="flex items-center gap-2 text-black/60 hover:text-primary transition"
+                  href="mailto:youremail@gmail.com"
+                >
                   <FiMail size={14} /> Email
                 </a>
 
-                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="https://facebook.com">
-                  <FiFacebook size={14} /> Facebook
-                </a>
-
-                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="https://linkedin.com">
+                <a
+                  className="flex items-center gap-2 text-black/60 hover:text-primary transition"
+                  href="https://linkedin.com"
+                >
                   <FiLinkedin size={14} /> LinkedIn
                 </a>
 
-                <a className="flex items-center gap-2 text-black/60 hover:text-primary transition" href="https://t.me">
+                <a
+                  className="flex items-center gap-2 text-black/60 hover:text-primary transition"
+                  href="https://t.me"
+                >
                   <FiSend size={14} /> Telegram
                 </a>
               </div>
-
             </div>
           </div>
 
@@ -85,22 +101,21 @@ export default function Footer() {
 
             {/* COPYRIGHT */}
             <div className="text-xs text-black/40">
-              © {new Date().getFullYear()} JP.DEV — All rights reserved
+              © {new Date().getFullYear()} JP.DEV — Built as a systems portfolio
             </div>
 
-            {/* TAGS */}
+            {/* TECH STACK */}
             <div className="flex flex-wrap gap-2 text-xs text-black/40">
               <span className="px-3 py-1 rounded-full bg-white/40 border border-white/30">
-                React
+                System Architecture
               </span>
               <span className="px-3 py-1 rounded-full bg-white/40 border border-white/30">
-                Framer Motion
+                Automation
               </span>
               <span className="px-3 py-1 rounded-full bg-white/40 border border-white/30">
-                TailwindCSS
+                API Integration
               </span>
             </div>
-
           </div>
         </div>
 
@@ -114,7 +129,6 @@ export default function Footer() {
             Back to top
           </a>
         </div>
-
       </div>
     </footer>
   );
