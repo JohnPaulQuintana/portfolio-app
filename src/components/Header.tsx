@@ -17,7 +17,6 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 flex justify-center px-4 pt-4">
-      
       {/* FLOATING GLASS BAR */}
       <div
         className={`
@@ -45,30 +44,39 @@ export default function Header() {
 
         {/* NAV (desktop) */}
         <nav className="hidden md:flex items-center gap-8 text-sm text-black/60">
-          <a href="#home" className="hover:text-primary transition">Home</a>
-          <a href="#skills" className="hover:text-primary transition">Skills</a>
-          <a href="#work" className="hover:text-primary transition">Work</a>
-          <a href="#contact" className="hover:text-primary transition">Contact</a>
+          <a href="#home" className="hover:text-primary transition">
+            Home
+          </a>
+          <a href="#skills" className="hover:text-primary transition">
+            Skills
+          </a>
+          <a href="#work" className="hover:text-primary transition">
+            Work
+          </a>
+          <a href="#contact" className="hover:text-primary transition">
+            Contact
+          </a>
         </nav>
 
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-2">
-
           {/* CTA */}
           <a
-            href="mailto:jpquintana01@gmail.com"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=jpquintana01@gmail.com"
+            target="_blank"
+            rel="noreferrer"
             className="
-              group inline-flex items-center gap-2
-              px-4 sm:px-5 py-2
-              rounded-xl
-              bg-white/50
-              border border-white/40
-              backdrop-blur-xl
-              text-sm text-black/70
-              hover:bg-white/70
-              transition
-              shadow-sm
-            "
+    group inline-flex items-center gap-2
+    px-4 sm:px-5 py-2
+    rounded-xl
+    bg-white/50
+    border border-white/40
+    backdrop-blur-xl
+    text-sm text-black/70
+    hover:bg-white/70
+    transition
+    shadow-sm
+  "
           >
             Hire Me
             <FiArrowUpRight
@@ -97,10 +105,18 @@ export default function Header() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="md:hidden absolute top-full mt-3 left-1/2 -translate-x-1/2 w-[90%] bg-white/80 backdrop-blur-xl border border-white/40 shadow-lg rounded-2xl p-4 flex flex-col gap-3 text-sm text-black/70"
           >
-            <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
-            <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
-            <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
-            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            <a href="#home" onClick={() => setMenuOpen(false)}>
+              Home
+            </a>
+            <a href="#skills" onClick={() => setMenuOpen(false)}>
+              Skills
+            </a>
+            <a href="#work" onClick={() => setMenuOpen(false)}>
+              Work
+            </a>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>
+              Contact
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
