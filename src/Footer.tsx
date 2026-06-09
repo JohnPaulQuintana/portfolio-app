@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="absolute bottom-[-180px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-primary-soft/10 blur-[200px] rounded-full" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-0 md:px-6">
         {/* GLASS CARD */}
         <div
           className="
