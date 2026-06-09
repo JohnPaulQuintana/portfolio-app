@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -14,6 +17,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 flex justify-center px-4 pt-4">
+      
       {/* FLOATING GLASS BAR */}
       <div
         className={`
@@ -21,7 +25,6 @@ export default function Header() {
           flex items-center justify-between
           px-5 sm:px-8 py-3
           transition-all duration-300 ease-in-out
-
           rounded-2xl
 
           ${
@@ -32,52 +35,75 @@ export default function Header() {
         `}
       >
         {/* LOGO */}
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="font-semibold tracking-tight text-primary">
-            JP.DEV
-          </span>
+        <div className="flex items-center gap-2 bg-white rounded-xl p-2 shadow-md">
+          <img
+            src="/logo.png"
+            alt="JP.Dev Logo"
+            className="w-9 h-9 object-contain"
+          />
         </div>
 
         {/* NAV (desktop) */}
         <nav className="hidden md:flex items-center gap-8 text-sm text-black/60">
-          <a href="#home" className="hover:text-primary transition">
-            Home
-          </a>
-          <a href="#skills" className="hover:text-primary transition">
-            Skills
-          </a>
-          <a href="#work" className="hover:text-primary transition">
-            Work
-          </a>
-          <a href="#contact" className="hover:text-primary transition">
-            Contact
-          </a>
+          <a href="#home" className="hover:text-primary transition">Home</a>
+          <a href="#skills" className="hover:text-primary transition">Skills</a>
+          <a href="#work" className="hover:text-primary transition">Work</a>
+          <a href="#contact" className="hover:text-primary transition">Contact</a>
         </nav>
 
-        {/* CTA */}
-        <a
-          href="#contact"
-          className="
-    group inline-flex items-center gap-2
-    px-4 sm:px-5 py-2
-    rounded-xl
-    bg-white/50
-    border border-white/40
-    backdrop-blur-xl
-    text-sm text-black/70
-    hover:bg-white/70
-    transition
-    shadow-sm
-  "
-        >
-          Hire Me
-          <FiArrowUpRight
-            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            size={16}
-          />
-        </a>
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-2">
+
+          {/* CTA */}
+          <a
+            href="#contact"
+            className="
+              group inline-flex items-center gap-2
+              px-4 sm:px-5 py-2
+              rounded-xl
+              bg-white/50
+              border border-white/40
+              backdrop-blur-xl
+              text-sm text-black/70
+              hover:bg-white/70
+              transition
+              shadow-sm
+            "
+          >
+            Hire Me
+            <FiArrowUpRight
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              size={16}
+            />
+          </a>
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 rounded-xl bg-white/50 border border-white/40 shadow-sm text-black/70"
+          >
+            {menuOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
       </div>
+
+      {/* MOBILE MENU (ANIMATED) */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="md:hidden absolute top-full mt-3 left-1/2 -translate-x-1/2 w-[90%] bg-white/80 backdrop-blur-xl border border-white/40 shadow-lg rounded-2xl p-4 flex flex-col gap-3 text-sm text-black/70"
+          >
+            <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
+            <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
+            <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
