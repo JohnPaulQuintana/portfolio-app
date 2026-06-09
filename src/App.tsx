@@ -22,12 +22,12 @@ export default function App() {
         </section>
 
         {/* CAPABILITIES */}
-        <section className="px-6">
+        <section className="px-0 md:px-6">
           <WhatIBuild />
         </section>
 
         {/* HOW I WORK */}
-        <section className="px-6">
+        <section className="px-0 md:px-6">
             <HowIWork />
             <UseCases />
             <TechStack />
