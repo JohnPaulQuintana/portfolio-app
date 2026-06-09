@@ -103,7 +103,9 @@ export default function Hero() {
         >
           {/* Primary CTA */}
           <a
-            href="#contact"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=jpquintana01@gmail.com"
+            target="_blank"
+            rel="noreferrer"
             className="
       group inline-flex items-center justify-center gap-2
       px-8 py-3 rounded-xl
