@@ -56,7 +56,7 @@ export default function Header() {
 
           {/* CTA */}
           <a
-            href="#contact"
+            href="mailto:jpquintana01@gmail.com"
             className="
               group inline-flex items-center gap-2
               px-4 sm:px-5 py-2
