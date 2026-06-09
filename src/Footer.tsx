@@ -18,22 +18,27 @@ export default function Footer() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* GLASS CARD */}
-        <div className="
+        <div
+          className="
           rounded-[28px]
           bg-white/40
           backdrop-blur-2xl
           border border-white/30
           shadow-[0_20px_60px_rgba(0,0,0,0.06)]
           px-6 sm:px-12 py-12
-        ">
-
+        "
+        >
           {/* TOP */}
           <div className="flex flex-col md:flex-row justify-between gap-12">
-
             {/* BRAND */}
             <div className="max-w-sm">
-              <div className="text-primary font-semibold text-lg tracking-tight">
-                JP.DEV
+              {/* LOGO */}
+              <div className="w-fit flex items-center gap-2 bg-white rounded-xl p-2 shadow-md">
+                <img
+                  src="/logo.png"
+                  alt="JP.Dev Logo"
+                  className="w-9 h-9 object-contain"
+                />
               </div>
 
               <p className="mt-4 text-black/60 text-sm leading-relaxed">
@@ -45,7 +50,6 @@ export default function Footer() {
 
             {/* ENGINEERING STACK LINKS */}
             <div className="grid grid-cols-2 gap-10 text-sm">
-
               <div className="space-y-3">
                 <div className="text-black font-medium">Engineering</div>
 
@@ -98,7 +102,6 @@ export default function Footer() {
 
           {/* BOTTOM */}
           <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-
             {/* COPYRIGHT */}
             <div className="text-xs text-black/40">
               © {new Date().getFullYear()} JP.DEV — Built as a systems portfolio
