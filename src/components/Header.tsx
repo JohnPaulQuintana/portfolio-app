@@ -15,6 +15,19 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+
+    if (!element) return;
+
+    const y = element.getBoundingClientRect().top + window.pageYOffset - 120;
+
+    window.scrollTo({
+      top: y,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full z-50 flex justify-center px-4 pt-4">
       {/* FLOATING GLASS BAR */}
@@ -44,20 +57,34 @@ export default function Header() {
 
         {/* NAV (desktop) */}
         <nav className="hidden md:flex items-center gap-8 text-sm text-black/60">
-          <a href="#home" className="hover:text-primary transition">
-            Home
-          </a>
-          <a href="#skills" className="hover:text-primary transition">
-            Skills
-          </a>
-          <a href="#work" className="hover:text-primary transition">
-            Work
-          </a>
-          <a href="#contact" className="hover:text-primary transition">
-            Contact
-          </a>
-        </nav>
+          <button
+            onClick={() => scrollToSection("solutions")}
+            className="hover:text-primary transition"
+          >
+            Solutions
+          </button>
 
+          <button
+            onClick={() => scrollToSection("work")}
+            className="hover:text-primary transition"
+          >
+            Work
+          </button>
+
+          <button
+            onClick={() => scrollToSection("stack")}
+            className="hover:text-primary transition"
+          >
+            Stack
+          </button>
+
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="hover:text-primary transition"
+          >
+            Contact
+          </button>
+        </nav>
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-2">
           {/* CTA */}
@@ -102,21 +129,48 @@ export default function Header() {
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.2 }}
             className="md:hidden absolute top-full mt-3 left-1/2 -translate-x-1/2 w-[90%] bg-white/80 backdrop-blur-xl border border-white/40 shadow-lg rounded-2xl p-4 flex flex-col gap-3 text-sm text-black/70"
           >
-            <a href="#home" onClick={() => setMenuOpen(false)}>
-              Home
-            </a>
-            <a href="#skills" onClick={() => setMenuOpen(false)}>
-              Skills
-            </a>
-            <a href="#work" onClick={() => setMenuOpen(false)}>
+            <button
+              className="text-left"
+              onClick={() => {
+                scrollToSection("solutions");
+                setMenuOpen(false);
+              }}
+            >
+              Solutions
+            </button>
+
+            <button
+              className="text-left"
+              onClick={() => {
+                scrollToSection("work");
+                setMenuOpen(false);
+              }}
+            >
               Work
-            </a>
-            <a href="#contact" onClick={() => setMenuOpen(false)}>
+            </button>
+
+            <button
+              className="text-left"
+              onClick={() => {
+                scrollToSection("stack");
+                setMenuOpen(false);
+              }}
+            >
+              Stack
+            </button>
+
+            <button
+              className="text-left"
+              onClick={() => {
+                scrollToSection("contact");
+                setMenuOpen(false);
+              }}
+            >
               Contact
-            </a>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

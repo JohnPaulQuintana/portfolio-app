@@ -10,84 +10,204 @@ import {
   FiZoomIn,
 } from "react-icons/fi";
 
-/* =========================
-   PROJECT DATA
-========================= */
-const projects = [
+const caseStudies = [
   {
-    title: "Enterprise Marketing Data Orchestration System",
-    category: "Data Engineering / Automation Platform",
+    title: "Enterprise Ad Operations Data Pipeline",
     confidential: true,
 
-    desc: "Centralized automation platform that aggregates advertising performance data across multiple marketing channels and standardizes reporting workflows.",
+    problem:
+      "Advertising performance data was fragmented across multiple platforms, requiring manual extraction and consolidation into reporting sheets.",
 
-    impact:
-      "Eliminated manual reporting processes and improved cross-platform data consistency.",
+    solution:
+      "Designed and implemented an automated data pipeline that aggregates advertising metrics from multiple ad networks and synchronizes structured reporting data into centralized sheets.",
+
+    result:
+      "Standardized reporting workflow across marketing operations and eliminated manual data compilation.",
 
     tech: [
       "Playwright",
       "Python",
-      "Web Scrapping",
+      "Web Scraping",
       "Google Sheets",
       "ETL Pipelines",
     ],
 
     images: ["/flow/1.png"],
-
     repo: null,
     live: null,
   },
 
   {
-    title: "Real-Time Financial Data Processing Engine",
-    category: "Market Data / Backend Systems",
+    title: "Real-Time Crypto Market Data & Pricing System",
     confidential: true,
 
-    desc: "Automated ingestion and normalization engine that processes market data from external exchanges and synchronizes computed rates into internal systems.",
+    problem:
+      "Business systems lacked a reliable mechanism to continuously track and normalize crypto market data for internal pricing and reporting.",
 
-    impact:
-      "Enabled reliable real-time financial visibility for operational reporting.",
+    solution:
+      "Built a scheduled data ingestion system that collects market data from Binance, applies rate normalization logic, and updates internal backoffice systems on an hourly cadence.",
+
+    result:
+      "Enabled consistent real-time financial visibility across internal trading and reporting tools.",
 
     tech: ["Node.js", "APIs", "Cron Jobs", "Data Pipelines"],
 
     images: ["/flow/2.png"],
-
     repo: null,
     live: null,
   },
 
   {
-    title: "Controlled Data Execution & Reporting Platform",
-    category: "Data Governance / Internal Tools",
+    title: "Controlled SQL Execution & Reporting Desktop Platform",
     confidential: true,
 
-    desc: "Secure execution layer that orchestrates SQL-based reporting workflows through controlled pipelines.",
+    problem:
+      "Teams were directly accessing analytics infrastructure (Superset) and executing unmanaged SQL queries, creating operational risk and inconsistency.",
 
-    impact:
-      "Improved governance, reduced operational risk, and standardized reporting workflows across teams.",
+    solution:
+      "Architected a desktop execution layer that integrates with Asana task workflows, allowing controlled SQL execution and generating standardized, downloadable reporting outputs without direct database access.",
+
+    result:
+      "Improved data governance, reduced query-level risk, and enforced controlled reporting workflows.",
 
     tech: ["Electron", "SQL", "Node.js"],
 
     images: ["/flow/3.png"],
-
     repo: null,
     live: null,
   },
 
   {
-    title: "Enterprise Spreadsheet Observability & Monitoring System",
-    category: "Observability / Reporting Infrastructure",
+    title: "Enterprise Spreadsheet Governance & Monitoring System",
     confidential: true,
 
-    desc: "Monitoring platform that tracks spreadsheet freshness and triggers alerts for reporting integrity issues.",
+    problem:
+      "Critical business spreadsheets lacked observability, resulting in outdated reports and delayed updates across teams.",
 
-    impact:
-      "Improved data reliability and introduced proactive monitoring for business-critical reporting systems.",
+    solution:
+      "Developed a centralized monitoring system that scans registered spreadsheets, evaluates update timestamps, and detects stale reporting states. Integrated alerting via Telegram for team leads.",
+
+    result:
+      "Improved data reliability across reporting operations and introduced proactive monitoring for business-critical spreadsheets.",
 
     tech: ["Node.js", "Schedulers", "Telegram API", "Monitoring"],
 
     images: ["/flow/4.png"],
+    repo: null,
+    live: null,
+  },
 
+  {
+    title: "Multi-Platform Ad Account Monitoring System",
+
+    problem:
+      "Ad account balances across multiple platforms (Adsterra, AdCash, and others) were tracked manually, increasing operational overhead and risk of oversight.",
+
+    solution:
+      "Built a centralized monitoring system that aggregates account balance data across advertising platforms and standardizes visibility into financial status.",
+
+    result:
+      "Reduced operational monitoring effort and improved financial oversight across ad operations.",
+
+    tech: ["Node.js", "Automation", "Reporting", "Monitoring"],
+
+    images: [],
+    repo: null,
+    live: null,
+  },
+
+  {
+    title:
+      "Identity Verification & Compliance KYC Platform (Face API Integration)",
+
+    problem:
+      "User onboarding required manual identity verification, creating delays and inconsistent validation outcomes.",
+
+    solution:
+      "Engineered a KYC verification workflow using Face API for facial detection and matching, combined with camera-based ID capture (front/back), validation checks, and watermarking for audit integrity before submission to backoffice systems.",
+
+    result:
+      "Streamlined identity verification workflow and improved compliance processing efficiency.",
+
+    tech: ["Face API", "Node.js", "Image Processing", "KYC", "Compliance"],
+
+    images: [],
+    repo: null,
+    live: null,
+  },
+
+  {
+    title: "Risk Intelligence & Abuse Detection API",
+
+    problem:
+      "Risk operations lacked a unified system to detect fraudulent behaviors such as multi-accounting and bonus abuse across backend systems.",
+
+    solution:
+      "Developed a centralized risk analysis API that aggregates backend signals and applies rule-based detection for suspicious account patterns and behavioral anomalies.",
+
+    result:
+      "Strengthened fraud detection capabilities and improved risk enforcement across systems.",
+
+    tech: ["Node.js", "REST API", "Fraud Detection", "Rules Engine"],
+
+    images: [],
+    repo: null,
+    live: null,
+  },
+
+  {
+    title: "Unified Email Aggregation & Workspace Client (NaviSync)",
+
+    problem:
+      "Users managing multiple email accounts lacked a centralized interface for monitoring communications.",
+
+    solution:
+      "Built a unified read-only email aggregation client that connects multiple email providers into a single interface for consolidated viewing.",
+
+    result:
+      "Improved productivity by reducing context switching across email platforms.",
+
+    tech: ["Electron", "React", "Email APIs", "Desktop Application"],
+
+    images: [],
+    repo: null,
+    live: null,
+  },
+
+  {
+    title: "Distributed Link Intelligence & Management Platform (NaviLink)",
+
+    problem:
+      "Important digital resources and links were scattered across multiple tools, chats, and notes with no structured organization.",
+
+    solution:
+      "Designed a link management system that enables categorization, storage, and controlled sharing of digital resources across teams and users.",
+
+    result:
+      "Improved knowledge organization and enabled structured information sharing.",
+
+    tech: ["React", "Node.js", "Knowledge Management", "Search"],
+
+    images: [],
+    repo: null,
+    live: null,
+  },
+
+  {
+    title: "Indoor Navigation & Spatial Mapping Engine (NaviAtlas)",
+
+    problem:
+      "There was no efficient system to test, simulate, and validate indoor SVG-based navigation maps for spatial layouts.",
+
+    solution:
+      "Built an indoor mapping and visualization engine that supports SVG-based spatial structures for testing navigation paths and layout validation.",
+
+    result:
+      "Accelerated prototyping and validation of indoor navigation systems for spatial applications.",
+
+    tech: ["React", "SVG", "Spatial Mapping", "Visualization"],
+
+    images: [],
     repo: null,
     live: null,
   },
@@ -259,7 +379,9 @@ function ImageSlider({ images = [] }: { images: string[] }) {
   const safeImages =
     images.length > 0
       ? images
-      : ["https://via.placeholder.com/1200x800?text=No+Preview"];
+      : [
+          "https://placehold.co/1200x800/F8FAFC/64748B?text=Architecture+Diagram",
+        ];
 
   const next = () => setIndex((p) => (p + 1) % safeImages.length);
   const prev = () =>
@@ -380,14 +502,14 @@ function ProjectCard({
   reverse,
   index,
 }: {
-  project: (typeof projects)[0];
+  project: (typeof caseStudies)[0];
   reverse: boolean;
   index: number;
 }) {
   const num = String(index + 1).padStart(2, "0");
 
-  const hasRepo = !!project.repo;
-  const hasLive = !!project.live;
+  // const hasRepo = !!project.repo;
+  // const hasLive = !!project.live;
 
   return (
     <motion.div
@@ -400,9 +522,25 @@ function ProjectCard({
       }`}
     >
       {/* BIG NUMBER */}
-      <div className="absolute left-0 md:left-auto md:right-4 top-1/2 -translate-y-1/2 text-[240px] font-bold text-primary/10 pointer-events-none select-none">
+      {/* BIG NUMBER */}
+      {/* <div
+        className="
+    absolute
+    right-0
+    top-1/2
+    -translate-y-1/2
+    pointer-events-none
+    select-none
+    font-bold
+    text-primary/5
+    hidden lg:block
+    text-[140px]
+    xl:text-[180px]
+    2xl:text-[220px]
+  "
+      >
         {num}
-      </div>
+      </div> */}
 
       {/* IMAGE */}
       <div className="relative">
@@ -412,34 +550,77 @@ function ProjectCard({
 
       {/* CONTENT */}
       <div className="relative z-10">
-        {/* CONFIDENTIAL BADGE */}
-        <div className="mb-3">
-          {project.confidential && (
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-xs text-red-600 font-medium shadow-sm">
+        {project.confidential && (
+          <div className="mb-4">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-xs text-red-600 font-medium">
               <FiLock className="text-xs" />
               Confidential System
             </span>
-          )}
+          </div>
+        )}
+
+        <div className="flex items-start gap-4">
+          <span className="text-primary/40 text-xl font-semibold">{num}</span>
+
+          <h3 className="text-4xl font-semibold text-black/80">
+            {project.title}
+          </h3>
         </div>
 
-        {/* TITLE */}
-        <h3 className="mt-6 text-4xl font-semibold text-black">
-          {project.title}
-        </h3>
-
-        {/* DESC */}
-        <p className="mt-4 text-black/60 leading-relaxed">{project.desc}</p>
-
-        {/* IMPACT */}
-        <div className="mt-6 p-5 rounded-3xl bg-white/40 border">
-          <div className="text-xs uppercase tracking-widest text-primary">
-            Impact
+        {/* PROBLEM */}
+        <div className="mt-8">
+          <div className="text-xs uppercase tracking-[0.2em] text-primary">
+            Problem
           </div>
-          <div className="mt-2 text-lg font-semibold">{project.impact}</div>
+
+          <p className="mt-3 text-black/70 leading-relaxed">
+            {project.problem}
+          </p>
+        </div>
+
+        {/* SOLUTION */}
+        <div className="mt-6">
+          <div className="text-xs uppercase tracking-[0.2em] text-primary">
+            Solution
+          </div>
+
+          <p className="mt-3 text-black/70 leading-relaxed">
+            {project.solution}
+          </p>
+        </div>
+
+        {/* RESULT FIRST */}
+        <div
+          className="
+    mt-6
+    relative
+    overflow-hidden
+    rounded-[32px]
+    border border-white/40
+    bg-white/50
+    backdrop-blur-3xl
+    shadow-[0_20px_80px_rgba(0,0,0,0.08)]
+    p-6
+  "
+        >
+          <div className="absolute -top-10 -right-10 w-48 h-48 bg-primary/20 blur-3xl rounded-full" />
+
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs uppercase tracking-[0.2em] text-primary">
+                Result
+              </span>
+            </div>
+
+            <p className="mt-4 text-xl font-semibold text-black/80 leading-relaxed">
+              {project.result}
+            </p>
+          </div>
         </div>
 
         {/* TECH */}
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap gap-2">
           {project.tech.map((t) => (
             <span
               key={t}
@@ -450,32 +631,30 @@ function ProjectCard({
           ))}
         </div>
 
-        {/* LINKS (ENABLED / DISABLED STYLE) */}
+        {/* LINKS */}
         <div className="mt-8 flex gap-3">
-          {/* GITHUB */}
           <button
-            disabled={!hasRepo}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition
-              ${
-                hasRepo
-                  ? "bg-white/60 hover:bg-white/80 text-black"
-                  : "bg-black/5 text-black/30 cursor-not-allowed"
-              }`}
+            disabled={!project.repo}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition ${
+              project.repo
+                ? "bg-white/60 hover:bg-white/80 text-black"
+                : "bg-black/5 text-black/30 cursor-not-allowed"
+            }`}
           >
-            <FiGithub /> GitHub
+            <FiGithub />
+            GitHub
           </button>
 
-          {/* LIVE */}
           <button
-            disabled={!hasLive}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl transition
-              ${
-                hasLive
-                  ? "bg-primary text-white hover:opacity-90"
-                  : "bg-black/5 text-black/30 cursor-not-allowed"
-              }`}
+            disabled={!project.live}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl transition ${
+              project.live
+                ? "bg-primary text-white hover:opacity-90"
+                : "bg-black/5 text-black/30 cursor-not-allowed"
+            }`}
           >
-            <FiExternalLink /> Live
+            <FiExternalLink />
+            Live
           </button>
         </div>
       </div>
@@ -510,11 +689,11 @@ export default function SelectedProjects() {
       {/* PROJECTS */}
       <div className="relative z-10 mt-20 max-w-7xl mx-auto px-6 md:px-28">
         <div className="relative space-y-28">
-          {projects.map((project, i) => (
+          {caseStudies.map((project, i) => (
             <div key={project.title} className="relative">
               {/* SECTION DIVIDER */}
               {i !== 0 && (
-                <div className="absolute -top-14 left-1/2 -translate-x-1/2 w-full max-w-6xl h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+                <div className="absolute -top-14 left-1/2 -translate-x-1/2 w-full max-w-6xl h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
               )}
 
               {/* SECTION NUMBER BACKGROUND */}
