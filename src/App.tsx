@@ -15,7 +15,7 @@ export default function App() {
 
       <main className="relative">
         {/* HERO */}
-        <section className="min-h-screen flex items-center justify-center px-6 mt-20">
+        <section className="min-h-screen flex items-center justify-center px-0 md:px-6 mt-20">
           <Hero />
         </section>
 
