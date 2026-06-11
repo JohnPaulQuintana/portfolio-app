@@ -42,12 +42,16 @@ export default function Hero() {
         className="relative z-10 text-center max-w-4xl mx-auto"
       >
         <motion.div variants={item} className="flex justify-center mb-5">
-          <div className="w-38 h-32 rounded-2xl overflow-hidden bg-white/20">
+          <div className="w-[252px] h-[228px] rounded-2xl overflow-hidden bg-white/20">
             <img
               src="/me.JPG"
               alt="profile"
-              className="w-full h-full object-cover object-center"
               draggable={false}
+              className="block w-full h-full object-cover"
+              style={{
+                objectPosition: "center",
+                aspectRatio: "1 / 1",
+              }}
             />
           </div>
         </motion.div>
