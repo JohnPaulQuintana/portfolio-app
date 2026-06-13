@@ -8,9 +8,30 @@ import {
   FiChevronLeft,
   FiChevronRight,
   FiZoomIn,
+  FiX,
+  FiZoomOut,
 } from "react-icons/fi";
+import { createPortal } from "react-dom";
 
 const caseStudies = [
+  {
+    title: "Indoor Navigation & Spatial Mapping Engine (NaviAtlas)",
+
+    problem:
+      "There was no efficient system to test, simulate, and validate indoor SVG-based navigation maps for spatial layouts.",
+
+    solution:
+      "Built an indoor mapping and visualization engine that supports SVG-based spatial structures for testing navigation paths and layout validation.",
+
+    result:
+      "Accelerated prototyping and validation of indoor navigation systems for spatial applications.",
+
+    tech: ["React", "SVG", "Spatial Mapping", "Visualization", "Express"],
+
+    images: ["/flow/5.png", "/flow/6.png", "/flow/7.png"],
+    repo: null,
+    live: "https://naviatlas.netlify.app/",
+  },
   {
     title: "Enterprise Ad Operations Data Pipeline",
     confidential: true,
@@ -192,25 +213,6 @@ const caseStudies = [
     repo: null,
     live: null,
   },
-
-  {
-    title: "Indoor Navigation & Spatial Mapping Engine (NaviAtlas)",
-
-    problem:
-      "There was no efficient system to test, simulate, and validate indoor SVG-based navigation maps for spatial layouts.",
-
-    solution:
-      "Built an indoor mapping and visualization engine that supports SVG-based spatial structures for testing navigation paths and layout validation.",
-
-    result:
-      "Accelerated prototyping and validation of indoor navigation systems for spatial applications.",
-
-    tech: ["React", "SVG", "Spatial Mapping", "Visualization"],
-
-    images: [],
-    repo: null,
-    live: null,
-  },
 ];
 
 function ImageViewer({
@@ -226,115 +228,235 @@ function ImageViewer({
   const [scale, setScale] = useState(1);
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
-  const start = useRef({ x: 0, y: 0 });
-  const pinchStart = useRef<number | null>(null);
+  const draggingRef = useRef(false);
+  const startRef = useRef({ x: 0, y: 0 });
+  const pinchStartRef = useRef<number | null>(null);
 
   const image = images[activeIndex];
-
-  // lock background scroll (critical for mobile)
-  useEffect(() => {
-    const original = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = original;
-    };
-  }, []);
-
-  // reset on image change
-  useEffect(() => {
-    setScale(1);
-    setPos({ x: 0, y: 0 });
-    setActiveIndex(index);
-  }, [index]);
 
   const clamp = (n: number, min: number, max: number) =>
     Math.max(min, Math.min(max, n));
 
-  const getDistance = (t: React.TouchList) => {
-    const dx = t[0].clientX - t[1].clientX;
-    const dy = t[0].clientY - t[1].clientY;
+  const resetView = () => {
+    setScale(1);
+    setPos({ x: 0, y: 0 });
+  };
+
+  const next = () => {
+    resetView();
+    setActiveIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prev = () => {
+    resetView();
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  useEffect(() => {
+    setActiveIndex(index);
+    resetView();
+  }, [index]);
+
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = original;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  // ========================
+  // DESKTOP
+  // ========================
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (scale <= 1) return;
+
+    draggingRef.current = true;
+
+    startRef.current = {
+      x: e.clientX - pos.x,
+      y: e.clientY - pos.y,
+    };
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!draggingRef.current) return;
+
+    setPos({
+      x: e.clientX - startRef.current.x,
+      y: e.clientY - startRef.current.y,
+    });
+  };
+
+  const onMouseUp = () => {
+    draggingRef.current = false;
+  };
+
+  const onWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+
+    const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+
+    setScale((prev) => clamp(prev * zoomFactor, 1, 6));
+  };
+
+  // ========================
+  // MOBILE
+  // ========================
+
+  const getDistance = (touches: React.TouchList) => {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
     return Math.sqrt(dx * dx + dy * dy);
   };
 
-  // TOUCH START
   const onTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 2) {
-      pinchStart.current = getDistance(e.touches);
-    } else if (e.touches.length === 1) {
-      start.current = {
+      pinchStartRef.current = getDistance(e.touches);
+    } else {
+      startRef.current = {
         x: e.touches[0].clientX - pos.x,
         y: e.touches[0].clientY - pos.y,
       };
     }
   };
 
-  // TOUCH MOVE (pinch + pan)
   const onTouchMove = (e: React.TouchEvent) => {
-    if (e.touches.length === 2 && pinchStart.current) {
-      const newDist = getDistance(e.touches);
-      const zoom = newDist / pinchStart.current;
-      setScale(clamp(scale * zoom, 1, 3));
-      pinchStart.current = newDist;
+    if (e.touches.length === 2 && pinchStartRef.current) {
+      const newDistance = getDistance(e.touches);
+
+      const zoomRatio = newDistance / pinchStartRef.current;
+
+      setScale((prev) => clamp(prev * zoomRatio, 1, 6));
+
+      pinchStartRef.current = newDistance;
     }
 
     if (e.touches.length === 1 && scale > 1) {
       setPos({
-        x: e.touches[0].clientX - start.current.x,
-        y: e.touches[0].clientY - start.current.y,
+        x: e.touches[0].clientX - startRef.current.x,
+        y: e.touches[0].clientY - startRef.current.y,
       });
     }
   };
 
   const onTouchEnd = () => {
-    pinchStart.current = null;
+    pinchStartRef.current = null;
 
     if (scale <= 1) {
       setPos({ x: 0, y: 0 });
     }
   };
 
-  const next = () => {
-    setActiveIndex((p) => (p + 1) % images.length);
-  };
+  // ========================
+  // DOUBLE CLICK / TAP
+  // ========================
 
-  const prev = () => {
-    setActiveIndex((p) => (p - 1 + images.length) % images.length);
-  };
-
-  const doubleTap = () => {
+  const toggleZoom = () => {
     if (scale === 1) {
       setScale(2.5);
     } else {
-      setScale(1);
-      setPos({ x: 0, y: 0 });
+      resetView();
     }
   };
 
-  return (
+  return createPortal(
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 bg-black z-[999] flex items-center justify-center touch-none"
+        className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
       >
-        {/* IMAGE */}
-        <motion.img
-          src={image}
-          className="max-h-[90vh] max-w-[90vw] select-none"
-          style={{
-            transform: `translate(${pos.x}px, ${pos.y}px) scale(${scale})`,
-            transition: "transform 0.12s ease-out",
-          }}
-          onClick={(e) => e.stopPropagation()}
-          onDoubleClick={doubleTap}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        />
+        {/* Counter */}
+        <div className="absolute top-5 left-1/2 -translate-x-1/2 z-20 rounded-full bg-white/10 backdrop-blur px-4 py-2 text-sm text-white">
+          {activeIndex + 1} / {images.length}
+        </div>
 
-        {/* NAV */}
+        {/* Close */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          className="absolute top-4 right-4 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/10 flex items-center justify-center text-white hover:bg-white/20"
+        >
+          <FiX size={20} />
+        </button>
+
+        {/* Zoom Controls */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setScale((s) => clamp(s - 0.5, 1, 6));
+            }}
+            className="w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/10 flex items-center justify-center text-white"
+          >
+            <FiZoomOut />
+          </button>
+
+          <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur text-white text-sm">
+            {Math.round(scale * 100)}%
+          </div>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setScale((s) => clamp(s + 0.5, 1, 6));
+            }}
+            className="w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/10 flex items-center justify-center text-white"
+          >
+            <FiZoomIn />
+          </button>
+        </div>
+
+        {/* Image Container */}
+        <div
+          className="absolute inset-0 flex items-center justify-center overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+          onWheel={onWheel}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+        >
+          <motion.img
+            src={image}
+            draggable={false}
+            onMouseDown={onMouseDown}
+            onDoubleClick={toggleZoom}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            className="
+              select-none
+              max-w-[90vw]
+              max-h-[90vh]
+              object-contain
+              touch-none
+              cursor-grab
+              active:cursor-grabbing
+            "
+            style={{
+              transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${scale})`,
+              transformOrigin: "center center",
+            }}
+          />
+        </div>
+
+        {/* Navigation */}
         {images.length > 1 && (
           <>
             <button
@@ -342,12 +464,16 @@ function ImageViewer({
                 e.stopPropagation();
                 prev();
               }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 
-                         w-14 h-14 flex items-center justify-center
-                         rounded-full bg-white/10 text-white
-                         backdrop-blur border border-white/20"
+              className="
+                absolute left-4 top-1/2 -translate-y-1/2
+                w-14 h-14 rounded-full
+                bg-white/10 backdrop-blur
+                border border-white/10
+                text-white
+                flex items-center justify-center
+              "
             >
-              <FiChevronLeft className="text-2xl" />
+              <FiChevronLeft size={28} />
             </button>
 
             <button
@@ -355,17 +481,22 @@ function ImageViewer({
                 e.stopPropagation();
                 next();
               }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 
-                         w-14 h-14 flex items-center justify-center
-                         rounded-full bg-white/10 text-white
-                         backdrop-blur border border-white/20"
+              className="
+                absolute right-4 top-1/2 -translate-y-1/2
+                w-14 h-14 rounded-full
+                bg-white/10 backdrop-blur
+                border border-white/10
+                text-white
+                flex items-center justify-center
+              "
             >
-              <FiChevronRight className="text-2xl" />
+              <FiChevronRight size={28} />
             </button>
           </>
         )}
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
 
@@ -647,6 +778,11 @@ function ProjectCard({
 
           <button
             disabled={!project.live}
+            onClick={() => {
+              if (project.live) {
+                window.open(project.live, "_blank", "noopener,noreferrer");
+              }
+            }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition ${
               project.live
                 ? "bg-primary text-white hover:opacity-90"

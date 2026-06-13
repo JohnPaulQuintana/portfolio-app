@@ -1,3 +1,4 @@
+// import GlassBubbles from "./components/background/GlassBubbles";
 import ContactCTA from "./components/ContactCTA";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -11,6 +12,9 @@ import Footer from "./Footer";
 export default function App() {
   return (
     <div className="bg-white text-black overflow-x-hidden">
+      {/* 🌫 Background */}
+      {/* <GlassBubbles /> */}
+
       <Header />
 
       <main className="relative">
